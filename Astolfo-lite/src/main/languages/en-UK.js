@@ -25,7 +25,8 @@ module.exports = class extends Language {
 		  LOAD_TRANSFER: "Transferring...",
 		  TRANSFER_DONE: "Transferred!",
 		  NO_TRANSFER: "Sorry! You cannot transfer funds until you do run the balance command to create an account",
-		  
+		  ERR_TRANSFER_FUNDS: (amt1, amt2) => `Sorry! You are trying to send **${amt1} credits** but you only have **${amt2} credits**.`,
+		  TRANSFER_SENT: (amt, u1, u2) => `**${amt} credits** have been transferred from ${u1} to ${u2}!\n\nNew balances:`,
 		  
 		  // Klasa
 			DEFAULT: (key) => `${key} has not been localized for en-UK yet.`,

@@ -22,18 +22,13 @@ module.exports = class extends Command {
       });
       
       let user = params[0];
-      let amount = params[1];
+      let amount = Math.round(params[1]);
       
       if (amount < 1) {
         return message.sendLocale("GREATER_THAN_ZERO");
       }
 
-      switch(user.id) {
-          default:
-              break;
-          case message.author.id:
-              return message.sendLocale("IS_SELF");
-      }
+      if (user.id == message.author.id) return message.sendLocale("IS_SELF");
 
       let embed = {
           embed: {
@@ -65,24 +60,24 @@ module.exports = class extends Command {
                     } else {
                         bal = balance2.credits;
                         if (amount > balance2.credits) {
-                            return m.edit(`Sorry! You are trying to send **${amount} credits** but you only have **${balance2.credits} credits**.`);
+                            return m.edit(message.language.get("ERR_TRANSFER_FUNDS", amount, balance2.credits));
                         } else {
                             const update = {credits: balance2.credits-amount}
                             const update2 = {credits: balance1.credits+amount};
                             wallet.findOneAndUpdate({userID: message.author.id}, update).then(async () => {
                                 wallet.findOneAndUpdate({userID: user.id}, update2).then(async () => {
-                                    embed.embed.description = `**${amount} credits** have been transferred from ${message.author} to ${user}!\n\nNew balances:`;
+                                    embed.embed.description = message.language.get("TRANSFER_SENT", amount, message.author, user);
                                     embed.embed.fields.push({ name: message.author.tag, value: balance2.credits-amount });
                                     embed.embed.fields.push({ name: user.tag, value: balance1.credits+amount });
-                                    return m.edit("Transferred!", embed);
+                                    return m.edit(message.language.get("TRANSFER_DONE"), embed);
                                 });
                             });
                         }
                     }
                 });
-            }
+          }
         });
-    })
+      })
       return;
     }
 
