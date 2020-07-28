@@ -1,0 +1,2 @@
+language="node"
+run="cd Astolfo-lite/src/main && node app.js"
