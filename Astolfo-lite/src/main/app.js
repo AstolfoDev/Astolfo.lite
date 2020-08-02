@@ -1,4 +1,5 @@
 const { Client } = require('klasa');
+const config = require("./config.json");
 
 new Client({
     fetchAllMembers: false,
@@ -7,5 +8,5 @@ new Client({
     typing: true,
     preserveSettings: false,
     language: 'en-UK',
-    readyMessage: (client) => `Astolfo.js has been initialized.\nBot Statistics\nAccount: ${client.user.tag}\nGuilds:: ${client.guilds.cache.size}\nUsers::: ${client.users.cache.size}`
+    readyMessage: (client) => `${config.bot.identity.name} has been initialized.\nBot Information\nAccount : ${client.user.tag}\nGuilds  : ${client.guilds.cache.size}\nUsers   : ${client.users.cache.size}`
 }).login(process.env.TOKEN);

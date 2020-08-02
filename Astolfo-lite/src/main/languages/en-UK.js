@@ -1,4 +1,5 @@
 const { Language, util } = require('klasa');
+const config = require("../config.json");
 
 module.exports = class extends Language {
 
@@ -25,8 +26,18 @@ module.exports = class extends Language {
 		  LOAD_TRANSFER: "Transferring...",
 		  TRANSFER_DONE: "Transferred!",
 		  NO_TRANSFER: "Sorry! You cannot transfer funds until you do run the balance command to create an account",
-		  ERR_TRANSFER_FUNDS: (amt1, amt2) => `Sorry! You are trying to send **${amt1} credits** but you only have **${amt2} credits**.`,
-		  TRANSFER_SENT: (amt, u1, u2) => `**${amt} credits** have been transferred from ${u1} to ${u2}!\n\nNew balances:`,
+		  ERR_TRANSFER_FUNDS: (amt1, amt2) => `Sorry! You are trying to send **${amt1} ${config.bot.emotes.eco.cr}** but you only have **${amt2} ${config.bot.emotes.eco.cr}**.`,
+		  TRANSFER_SENT: (amt, u1, u2) => `**${amt} ${config.bot.emotes.eco.cr}** have been transferred from ${u1} to ${u2}!\n\nNew balances:`,
+		  
+		    // Work
+      CS_WORK: (code, num) => `<:astolfoHappy:683035783963082797> **Hey!** Write this code for me...\n\`\`\`${code[num]}\`\`\`\n🕑 You have **60 seconds!**`,
+      
+		  LOAD_WORK: "Working...",
+		  WORK_DONE: (pay, bal) => `**Work complete!**\nYou have earned \`${pay}\` ${config.bot.emotes.eco.cr} and now have \`${bal}\` ${config.bot.emotes.eco.cr} in your balance.`,
+		  WORK_FAIL: "**Work failed!**\nNo rewards will be given.",
+		  MINE_ORE: "**Mine the ore!**",
+		  
+		  MC_GAME: (e1, w1, e2, w2, e3, w3) => `<:astolfoHappy:683035783963082797> **heyyyYyyyy!** which word has the wrong emoji next to it?\n${e1} ${w1}\n${e2} ${w2}\n${e3} ${w3}\n🕐 You have **15 seconds!**`,
 		  
 		  // Klasa
 			DEFAULT: (key) => `${key} has not been localized for en-UK yet.`,

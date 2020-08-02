@@ -1,6 +1,7 @@
 const { Command } = require('klasa');
 const mongoose = require("mongoose");
 const wallet = require("../../../database/mongodb/models/eco/wallet.js");
+const config = require("../../config.json");
 module.exports = class extends Command {
 
     constructor(...args) {
@@ -34,12 +35,11 @@ module.exports = class extends Command {
 
       let embed = {
           embed: {
-              title: `Astolfo Lite | ${user.username}'s balance`,
+              title: `${config.bot.identity.full_name} | Credits Transfer`,
               fields: [],
-              color: 0xde1073,
-
+              color: config.bot.identity.colour,
               url: "https://astolfo.tech",
-              footer: { text: "Astolfo.lite | https://astolfo.tech/", url: "https://astolfo.tech/" }
+              footer: { text: `${config.bot.identity.name} | https://astolfo.tech/`, url: "https://astolfo.tech/" }
           }
       };
 
@@ -53,9 +53,9 @@ module.exports = class extends Command {
                   embed.embed.description = message.language.get("ERR_NO_BALANCE");
               } else {
                   embed.embed.description = message.language.get("BALANCE_DESC");
-                  embed.embed.fields.push({ name: message.language.get("CR"), value: wallet.credits, inline: true });
-                  embed.embed.fields.push({ name: message.language.get("TC"), value: wallet.trapcoins, inline: true });
-                  embed.embed.fields.push({ name: message.language.get("AT"), value: wallet.tokens, inline: true });
+                  embed.embed.fields.push({ name: message.language.get("CR"), value: wallet.credits+" "+config.bot.emotes.eco.cr, inline: true });
+                  embed.embed.fields.push({ name: message.language.get("TC"), value: wallet.trapcoins+" "+config.bot.emotes.eco.tc, inline: true });
+                  embed.embed.fields.push({ name: message.language.get("AT"), value: wallet.tokens+" "+config.bot.emotes.eco.at, inline: true });
               }
 
               return m.edit(message.language.get("LOADED"), embed);

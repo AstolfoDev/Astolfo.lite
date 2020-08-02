@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@klasa/dashboard-hooks": "git+https://github.com/dirigeants/klasa-dashboard-hooks.git",
     "discord.js-light": "^3.0.6",
     "klasa": "^0.5.0",
     "mongoose": "^5.9.26",
